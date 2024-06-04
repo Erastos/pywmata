@@ -247,14 +247,16 @@ class StopSchedule(Response):
         self.stop = StopRoutes(json["Stop"])
 
 class RouteResponse(Response):
-    route: Route
+    route: str
     name: str
     line_description: str
 
     def __init__(self, json: Dict[str, Any]):
         super().__init__(json)
 
-        self.route = Route(json["RouteID"])
+        self.route = json["RouteID"]
+    def __repr__(self) -> str:
+        return f"{self.route}"
 
 
 class Routes(Response):
@@ -267,7 +269,9 @@ class Routes(Response):
                 json["Routes"]
             )
         )
-
+    def __repr__(self) -> str:
+        return repr(self.routes)
+    
 class StopResponse(Response):
     stop: Optional[Stop]
     name: str
