@@ -333,16 +333,20 @@ class LineResponse(Response):
         super().__init__(json)
 
         self.line = Line[json["LineCode"]]
-        self.start_station = Station[json["StartStationCode"]]
-        self.end_station = Station[json["EndStationCode"]]
-        self.first_internal_destination = get_optional_station(json["InternalDestination1"])
-        self.second_internal_destination = get_optional_station(json["InternalDestination2"])
+        self.start_station = json["StartStationCode"]
+        self.end_station = json["EndStationCode"]
+
+    def __repr__(self) -> str:
+        return f"{self.display_name} - ({self.start_station},{self.end_station})"
 
 class Lines(Response):
     lines: List[LineResponse]
 
     def __init__(self, json: Dict[str, Any]):
         self.lines = list(map(LineResponse, json["Lines"]))
+
+    def __repr__(self) -> str:
+        return repr(self.lines)
 
 class StationEntrance(Response):
     description: str
