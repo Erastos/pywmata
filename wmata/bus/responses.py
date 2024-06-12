@@ -52,6 +52,8 @@ class BusPosition(Response):
         self.trip_start_time = string_to_datetime(json["TripStartTime"])
         self.vehicle_id = json["VehicleID"]
 
+    def __repr__(self) -> str:
+        return f"{self.vehicle_id} - {self.route} - [{self.trip_start_time}, {self.trip_end_time}] - ({self.latitude},{self.longitude})"
 
 class BusPositions(Response):
     bus_positions: List[BusPosition]
@@ -63,6 +65,9 @@ class BusPositions(Response):
                 json["BusPositions"]
             )
         )
+
+    def __repr__(self) -> str:
+        return repr(self.bus_positions)
 
 class Incident(Response):
     date_updated: datetime
@@ -77,6 +82,9 @@ class Incident(Response):
         self.date_updated = string_to_datetime(json["DateUpdated"])
         self.incident_id = json["IncidentID"]
         self.routes_affected = [get_route(route) for route in json["RoutesAffected"]]
+    
+    def __repr__(self) -> str:
+        return f"{self.date_updated} - {self.incident_id} - {self.routes_affected}"
 
 
 class Incidents(Response):
@@ -99,6 +107,9 @@ class PathShape(Response):
         self.latitude = json["Lat"]
         self.longitude = json["Lon"]
         self.sequence_number = json["SeqNum"]
+
+    def __repr__(self) -> str:
+        return f"{self.}"
 
 class StopRoutes(Response):
     stop: Stop
@@ -253,7 +264,6 @@ class RouteResponse(Response):
 
     def __init__(self, json: Dict[str, Any]):
         super().__init__(json)
-
         self.route = json["RouteID"]
     def __repr__(self) -> str:
         return f"{self.route}"
