@@ -5,8 +5,12 @@ WORKDIR /app
 
 RUN pip install pipenv
 
-COPY . .
+COPY Pipfile .
 
 RUN pipenv install
 
-CMD /bin/bash
+ENV TERM xterm
+
+COPY . .
+
+CMD /bin/bash -i -c "pipenv shell; python"
