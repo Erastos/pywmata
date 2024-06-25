@@ -108,8 +108,6 @@ class PathShape(Response):
         self.longitude = json["Lon"]
         self.sequence_number = json["SeqNum"]
 
-    def __repr__(self) -> str:
-        return f"{self.}"
 
 class StopRoutes(Response):
     stop: Stop
