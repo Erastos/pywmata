@@ -97,6 +97,9 @@ class Incidents(Response):
                 json["BusIncidents"]
             )
         )
+    
+    def __repr__(self) -> str:
+        return repr(self.incidents)
 
 class PathShape(Response):
     latitude: float
@@ -107,7 +110,6 @@ class PathShape(Response):
         self.latitude = json["Lat"]
         self.longitude = json["Lon"]
         self.sequence_number = json["SeqNum"]
-
 
 class StopRoutes(Response):
     stop: Stop
@@ -124,6 +126,9 @@ class StopRoutes(Response):
         self.longitude = json["Lon"]
         self.routes = [get_route(route) for route in json["Routes"]]
         
+    def __repr__(self) -> str:
+        return f"{self.stop} - {self.routes} - ({self.latitude},{self.longitude})"
+    
 class PathDirection(Response):
     trip_headsign: str
     direction_text: str
